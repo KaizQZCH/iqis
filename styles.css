@@ -1,0 +1,520 @@
+/* Global */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Animasi Bintang */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -10; /* pastikan lebih kecil dari semua elemen */
+    pointer-events: none; /* biar gak ganggu klik */
+}
+
+/* Navbar */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 10px white, 0 0 20px cyan;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    transition: all 0.3s;
+}
+
+.nav-links a:hover {
+    color: cyan;
+    text-shadow: 0 0 10px cyan, 0 0 20px white;
+}
+
+/* Animasi Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Hero Section */
+.container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 100vh;
+    justify-content: center;
+}
+
+/* Animasi Gambar Muncul dari Bawah */
+.chibi {
+    width: 150px;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.chibi.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Teks Animasi */
+.text-box {
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+    min-height: 30px;
+    min-width: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px cyan;
+}
+
+/* Efek Cursor Blinking */
+.text-box::after {
+    content: "|";
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Grid Portfolio */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 50px;
+    text-align: center;
+}
+
+.grid-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.grid-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px cyan;
+}
+/* Buat semua teks dalam About, Our Work, Contact Us, dan Copyright agar di tengah */
+#about, #contact, #copyright {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Pastikan footer juga di tengah */
+footer {
+    text-align: center;
+    padding: 20px;
+}
+#portfolio {
+    text-align: center;
+}
+
+#portfolio h2,
+#portfolio p {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Khusus grid biar tetap rapi kiri-kanan */
+#portfolio .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    text-align: left; /* balikin grid-item ke kiri */
+}
+.speech {
+    font-size: 20px;
+    color: white;
+    text-shadow: 0 0 10px white, 0 0 20px cyan;
+    margin-top: 20px;
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+#typed-text {
+    white-space: nowrap;
+    overflow: hidden;
+}
+/* Background bintang hanya di landing page */
+#landing {
+    position: relative;
+    background-color: black;
+}
+
+/* Hilangkan bintang saat scroll ke bawah */
+#home, #about, #portfolio, #contact {
+    background-image: url("full-item-background.png"); /* Ganti dengan gambar yang kamu mau */
+    background-size: cover;
+    background-position: center;
+}
+/* Border / Frame di Setiap Section */
+section {
+    position: relative;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.grid-item video,
+.grid-item img {
+    width: 100%; /* Biar ukurannya responsif */
+    max-width: 300px; /* Biar nggak terlalu besar */
+    border-radius: 10px; /* Biar ada efek rounded */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Efek glow */
+    margin-bottom: 10px;
+}
+.project-video {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px;
+    transition: transform 0.3s ease-in-out; /* Animasi biar smooth */
+}
+
+.project-video:hover {
+    transform: scale(1.05); /* Video sedikit membesar pas di-hover */
+}
+.project-video:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px cyan;
+}
+section:not(#landing) {
+    border: 2px solid cyan;
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+/* Biar landing cuma ada border bawah aja */
+#landing {
+    border: none;
+    border-bottom: 2px solid cyan;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#landing .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+section:not(#landing) {
+    padding: 20px;
+    border: 2px solid cyan;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 15px cyan;
+}
+img, video, .text-box {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+/* Biar scroll smooth dan ga ketabrak header */
+#home, #portfolio, #about, #contact {
+    scroll-margin-top: 100px; /* Sesuaikan kira-kira tinggi header kamu */
+  }
+  @media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+}
+#scrollIndicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px;
+    background: cyan;
+    width: 0%;
+    z-index: 9999;
+    transition: width 0.25s ease-out;
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+#home {
+    background-image: url("bg-home.jpg");
+}
+
+#about {
+    background-image: url("bg-about.jpg");
+}
+
+#portfolio {
+    background-image: url("bg-portfolio.jpg");
+}
+
+#contact {
+    background-image: url("bg-contact.jpg");
+}
+.youtube-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 15px cyan;
+    margin-bottom: 20px;
+}
+
+.youtube-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.project-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid cyan;
+    box-shadow: 0 0 15px cyan;
+    text-align: center;
+}
+
+.project-card h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.project-card p {
+    color: #ccc;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.youtube-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 15px cyan;
+}
+
+.youtube-wrapper iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.burger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    margin-left: auto;
+}
+
+
+.burger div {
+    background-color: white;
+    height: 3px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .burger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        align-items: center;
+        transition: height 0.3s ease;
+    }
+
+    .nav-links.active {
+        height: 200px;
+    }
+
+    .nav-links li {
+        margin: 15px 0;
+    }
+}
+
+.burger {
+    display: flex;
+    }
+.burger.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.burger.toggle .line2 {
+    opacity: 0;
+}
+
+.burger.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+.burger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.burger .line {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+}
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 20px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .burger {
+        display: flex;
+        align-self: flex-end;
+        margin-top: 10px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .home, .hero, #portfolio, #about, #contact {
+        padding: 20px 15px;
+    }
+
+    .grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+
+    iframe {
+        width: 100%;
+        height: auto;
+    }
+}
+.social-links {
+    margin-top: 15px;
+}
+
+.social-icon {
+    width: 32px;
+    height: 32px;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.2);
+}
+

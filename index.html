@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PukisStudio</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 100;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 10px white, 0 0 20px cyan;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+        .nav-links li {
+            margin: 0 15px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px;
+            transition: all 0.3s;
+        }
+        .nav-links a:hover {
+            color: cyan;
+            text-shadow: 0 0 10px cyan, 0 0 20px white;
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .chibi-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chibi {
+            width: 150px;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: fadeInUp 1s forwards;
+        }
+        .speech {
+            font-size: 20px;
+            font-weight: bold;
+            opacity: 0;
+            animation: fadeIn 1.5s 1s forwards;
+            text-shadow: 0 0 10px white;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .home {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .home h1 {
+            font-size: 36px;
+            text-shadow: 0 0 10px white, 0 0 20px cyan;
+        }
+        .explore-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: cyan;
+            color: black;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+        .explore-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px cyan;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starCanvas"></canvas>
+    <div id="scrollIndicator"></div>
+    <script>
+        const canvas = document.getElementById("starCanvas");
+        const ctx = canvas.getContext("2d");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        let stars = [];
+        for (let i = 0; i < 150; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2,
+                alpha: Math.random(),
+                speed: Math.random() * 0.02
+            });
+        }
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let star of stars) {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+                ctx.fill();
+                star.alpha += star.speed;
+                if (star.alpha >= 1 || star.alpha <= 0.2) star.speed *= -1;
+            }
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+    </script>
+
+    <header>
+        <nav>
+            <div class="logo">PukisStudio</div>
+            <ul class="nav-links" id="nav-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="burger" onclick="toggleMenu()">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>            
+          </nav>          
+    </header>
+
+    <!-- Halaman pertama (Chibi) -->
+    <section id="landing">
+        <div class="container" class="hero">
+            <div class="chibi-container">
+                <img src="channels4_profile_1-removebg-preview.png" class="chibi" />
+                <p class="speech">
+                    <span id="typed-text"></span><span class="cursor">|</span>
+                </p>
+            </div>            
+      </section>      
+
+    <!-- Home -->
+    <section id="home" class="home">
+        <h1>Creative Visual Effects</h1>
+        <p>Pushing the boundaries of digital art and animation.</p>
+        <button class="explore-btn" onclick="scrollToPortfolio()">Explore</button>
+    </section>
+
+    <section id="portfolio">
+        <h2>Our Work</h2>
+        <p>Here are some of our recent projects.</p>
+    
+        <div class="grid">
+            <!-- Project 1 -->
+            <div class="project-card fade-in">
+                <h3>Judul Project Baru</h3>
+                <p>Deskripsi project baru </p>
+                <div class="youtube-wrapper">
+                  <iframe src="https://www.youtube.com/embed/ouDYZzHRFuQ?si=3JMzzglzevU8ZI-7" allowfullscreen></iframe>
+                </div>
+              </div>                        
+        
+            <!-- Project 2 -->
+            <div class="grid-item">
+                <img src="image1.png" alt="Project 2 Image">
+                <h3>Project 2</h3>
+                <p>Description of project 2.</p>
+            </div>
+        
+            <!-- Project 3 -->
+            <div class="project-card fade-in">
+                <h3>Judul Project Baru</h3>
+                <p>Deskripsi project baru </p>
+                <div class="youtube-wrapper">
+                  <iframe src="https://www.youtube.com/embed/v6VQ3TKLutU?si=I_kDw4ZsVBaE-oPl" allowfullscreen></iframe>
+                </div>
+              </div>                                 
+    </section>    
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We are a creative team that makes cool visual effects.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: mbiqissulungp@gmail.com</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/nama_ig_kamu/" target="_blank" aria-label="Instagram">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" class="social-icon">
+            </a>    
+            <a href="https://www.youtube.com/@nama_channel_kamu" target="_blank" aria-label="YouTube">
+                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" class="social-icon">
+            </a>
+            <a href="https://discord.gg/link_server_kamu" target="_blank" aria-label="Discord">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord" class="social-icon">
+            </a>
+        </div>
+    </section>    
+
+    <footer>
+        <p>&copy; 2025 PukisStudio. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        function scrollToPortfolio() {
+            document.getElementById("portfolio").scrollIntoView({ behavior: "smooth" });
+        }
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const videos = document.querySelectorAll(".project-video");
+
+        videos.forEach(video => {
+            video.addEventListener("mouseenter", () => {
+                video.play();
+            });
+
+            video.addEventListener("mouseleave", () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+        });
+    });
+
+</script>
+
+<script>
+    window.onscroll = function () {
+        const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("scrollIndicator").style.width = scrolled + "%";
+    };
+</script>
+
+<script>
+    const faders = document.querySelectorAll('.fade-in');
+
+    const appearOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            appearOnScroll.unobserve(entry.target);
+        });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+    });
+</script>
+
+<script>
+    window.addEventListener('load', () => {
+        const chibi = document.querySelector('.chibi');
+        const textElement = document.getElementById('typed-text');
+        const text = 'Welcome to my Portfolio!';
+        let index = 0;
+
+        setTimeout(() => {
+            chibi.classList.add('show');
+
+            setTimeout(() => {
+                function typeChar() {
+                    if (index < text.length) {
+                        textElement.textContent += text.charAt(index);
+                        index++;
+                        setTimeout(typeChar, 80);
+                    }
+                }
+                typeChar();
+            }, 800);
+        }, 500);
+    });
+</script>
+
+<script>
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('nav-links');
+
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        burger.classList.toggle('toggle');
+    });
+</script>
+
+<script>
+    function toggleMenu() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    }
+</script>
+
+</body>
+</html>
